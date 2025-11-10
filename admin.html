@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel - Medusa Nextgen Display</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+<style>
+  body{
+    font-family:'Roboto',sans-serif;
+    margin:0;
+    background: linear-gradient(135deg,#141E30,#243B55);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+    min-height:100vh;
+  }
+  h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.5em;
+    background: linear-gradient(90deg,#00f,#0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom:20px;
+  }
+  input, select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    width:250px;
+    margin:5px;
+  }
+  button{
+    background: linear-gradient(90deg,#ff416c,#ff4b2b);
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    margin:5px;
+    transition:0.3s;
+  }
+  button:hover{ transform:scale(1.05); }
+  h2{ margin-top:20px; }
+  #message{ margin-top:15px; font-weight:bold; }
+</style>
+</head>
+<body>
+<h1>Admin Panel - Medusa Nextgen Display</h1>
+
+<h2>Add / Update Orders</h2>
+<input type="text" id="customerName" placeholder="Customer Name">
+<input type="text" id="phoneNumber" placeholder="Phone Number">
+<input type="text" id="orderID" placeholder="Order ID">
+<select id="status">
+  <option>Order Placed</option>
+  <option>Shipped from China</option>
+  <option>Received Sri Lanka</option>
+  <option>Custom Clearance</option>
+  <option>Ready to Collect</option>
+</select>
+<button onclick="addOrder()">Add / Update Order</button>
+
+<h2>Add / Update Inventory</h2>
+<input type="text" id="itemName" placeholder="Item Name">
+<input type="number" id="price" placeholder="Price">
+<input type="number" id="quantity" placeholder="Quantity">
+<input type="number" id="reorderLevel" placeholder="Reorder Level">
+<button onclick="addInventory()">Add / Update Item</button>
+
+<p id="message"></p>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+   apiKey: "AIzaSyCyBWuKREPhHPOEFVxUGszbpDdXKQGcdEg",
+  authDomain: "repairtrackersystem.firebaseapp.com",
+  projectId: "repairtrackersystem",
+  storageBucket: "repairtrackersystem.firebasestorage.app",
+  messagingSenderId: "181636666453",
+  appId: "1:181636666453:web:9fa73b02c4a6cbba7370dc"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db=firebase.firestore();
+
+  function addOrder(){
+    const orderID=document.getElementById("orderID").value;
+    if(!orderID){ alert("Order ID required"); return; }
+    db.collection("orders").doc(orderID).set({
+      customerName:document.getElementById("customerName").value,
+      phoneNumber:document.getElementById("phoneNumber").value,
+      orderID:orderID,
+      status:document.getElementById("status").value,
+      createdAt:firebase.firestore.Timestamp.now()
+    }).then(()=>{ document.getElementById("message").innerText="Order added/updated!"; });
+  }
+
+  function addInventory(){
+    const itemName=document.getElementById("itemName").value;
+    if(!itemName){ alert("Item Name required"); return; }
+    db.collection("inventory").doc(itemName).set({
+      itemName:itemName,
+      price:Number(document.getElementById("price").value),
+      quantity:Number(document.getElementById("quantity").value),
+      reorderLevel:Number(document.getElementById("reorderLevel").value)
+    }).then(()=>{ document.getElementById("message").innerText="Inventory item added/updated!"; });
+  }
+</script>
+</body>
+</html>

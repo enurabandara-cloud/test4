@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Medusa Nextgen Display</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    margin:0;
+    background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+  }
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size:3em;
+    background: linear-gradient(90deg,#00f,#0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom:20px;
+  }
+  a, button {
+    text-decoration:none;
+    color:#fff;
+    background: linear-gradient(90deg,#ff416c,#ff4b2b);
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+  }
+  a:hover, button:hover { transform: scale(1.05); }
+  form input {
+    padding:10px;
+    border-radius:5px;
+    border:none;
+    margin:5px 0;
+    width:250px;
+  }
+</style>
+</head>
+<body>
+  <h1>Medusa Nextgen Display</h1>
+  <p>Track your repair order:</p>
+  <form action="track.html" method="get">
+    <input type="text" name="orderID" placeholder="Enter Order ID" required>
+    <button type="submit">Track Order</button>
+  </form>
+  <p>Check inventory prices:</p>
+  <a href="inventory.html">Inventory Price Check</a>
+  <p>Admin Panel:</p>
+  <a href="admin.html">Login</a>
+</body>
+</html>
